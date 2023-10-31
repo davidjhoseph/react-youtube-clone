@@ -6,10 +6,11 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import Button from "./components/Button";
 import VideoGridItem from "./components/VideoGridItem";
 import Sidebar from "./layouts/Sidebar";
+import SidebarProvider from "./context/SidebarProvider";
 function App() {
   const [selectedCategory, setSelectedCategory] = useState(categories[0]);
   return (
-    <div>
+    <SidebarProvider>
       <div className="flex flex-col max-h-screen">
         <PageHeader />
         <div className="grid grid-cols-[auto,1fr] flex-grow-1 overflow-auto">
@@ -30,7 +31,7 @@ function App() {
           </div>
         </div>
       </div>
-    </div>
+    </SidebarProvider>
   );
 }
 

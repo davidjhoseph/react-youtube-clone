@@ -2,21 +2,13 @@ import Logo from "../assets/images/logo.png";
 import { ArrowLeft, Bell, Menu, Mic, Search, Upload, User } from "lucide-react";
 import Button from "../components/Button";
 import { useState } from "react";
+import { useSidebarContext } from "../context/SidebarProvider";
 export default () => {
   const [showSearch, setShowSearch] = useState(false);
+  const { toggle } = useSidebarContext();
   return (
-    <div className="flex items-center gap-10 pt-2 mb-6 mx-4 lg:gap-20 justify-between">
-      <div
-        className={`flex items-center gap-4 flex-shrink-0 ${
-          showSearch ? "hidden" : "flex"
-        }`}
-      >
-        <Button variant="ghost" size="icon">
-          <Menu />
-        </Button>
-        <img src={Logo} className="w-10" />
-        <a href="/"></a>
-      </div>
+    <div className="flex items-center justify-between gap-10 pt-2 mx-4 mb-6 lg:gap-20">
+      <PageHeaderFirstSection hidden={showSearch} />
       <Button
         variant="ghost"
         size="icon"
@@ -34,9 +26,9 @@ export default () => {
           <input
             type="search"
             placeholder="Search"
-            className="rounded-l-full border border-secondary-border shadow-inner shadow-secondary py-1 px-4 text-lg w-full focus:border-blue-500 outline-0"
+            className="w-full px-4 py-1 text-lg border rounded-l-full shadow-inner border-secondary-border shadow-secondary focus:border-blue-500 outline-0"
           />
-          <Button className="py-2 px-4 rounded-r-full border border-secondary-border border-l-0 flex-shrink-0">
+          <Button className="flex-shrink-0 px-4 py-2 border border-l-0 rounded-r-full border-secondary-border">
             <Search />
           </Button>
         </div>
@@ -70,6 +62,28 @@ export default () => {
           <User />
         </Button>
       </div>
+    </div>
+  );
+};
+
+export const PageHeaderFirstSection = ({
+  hidden = false,
+}: {
+  hidden?: boolean;
+}) => {
+  const { toggle } = useSidebarContext();
+
+  return (
+    <div
+      className={`flex items-center gap-4 flex-shrink-0 ${
+        hidden ? "hidden" : "flex"
+      }`}
+    >
+      <Button onClick={toggle} variant="ghost" size="icon">
+        <Menu />
+      </Button>
+      <img src={Logo} className="w-10" />
+      <a href="/"></a>
     </div>
   );
 };
